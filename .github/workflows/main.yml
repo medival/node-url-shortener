@@ -26,6 +26,8 @@ jobs:
       # Configure APP
       - name: Configure APP
         run: |
+          pwd
+          ls -lah
           sed -i 's|BASE_URL|${{ env.BASE_URL }}|g' api/controllers/UrlController.js
           sed -i 's|DATABASE_HOST|${{ env.DATABASE_HOST }}|g' config/env/*.js
           sed -i 's|DATABASE_NAME|${{ env.DATABASE_NAME }}|g' config/env/*.js
