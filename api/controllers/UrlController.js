@@ -1,7 +1,7 @@
 const Url = require('../models/Url');
 const base58 = require('../helpers/base58');
 
-const webhost = 'http://localhost:3000';
+const webhost = 'BASE_URL';
 
 function shorten(req, res) {
   if (req.body.url) {
