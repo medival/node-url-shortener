@@ -23,41 +23,14 @@ jobs:
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Setup Base URL
-      - uses: actions/checkout@v2
-      - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "BASE_URL"
-          replace: "vars.BASE_URL"
-          include: "api/controllers/UrlController.js"
-
-      # Setup Database Host
-      - uses: actions/checkout@v2
-      - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "DATABASE_HOST"
-          replace: "vars.DATABASE_HOST"
-          include: "config/env/*.js"
-
-      # Setup Database Name
-      - uses: actions/checkout@v2
-      - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "DATABASE_NAME"
-          replace: "vars.DATABASE_NAME"
-          include: "config/env/*.js"
-
-      # Setup Database Password
-      - uses: actions/checkout@v2
-      - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "DATABASE_PASSWORD"
-          replace: "secrets.DATABASE_PASSWORD"
-          include: "config/env/*.js"
+      # Configure APP
+      - name: Configure APP
+        run: |
+          sed -i 's|BASE_URL|${{ env.BASE_URL }}|g' api/controllers/UrlController.js
+          sed -i 's|DATABASE_HOST|${{ env.DATABASE_HOST }}|g' config/env/*.js
+          sed -i 's|DATABASE_NAME|${{ env.DATABASE_NAME }}|g' config/env/*.js
+          sed -i 's|DATABASE_USERNAME|${{ env.DATABASE_USERNAME }}|g' config/env/*.js
+          sed -i 's|DATABASE_PASSWORD|${{ secrets.DATABASE_PASSWORD }}|g' config/env/*.js
 
       # Build Image
       - uses: actions/checkout@v3
