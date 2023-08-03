@@ -30,7 +30,7 @@ jobs:
       # Configure APP
       - name: Configure APP
         run: |
-          sed -i 's|BASE_URL|${{ env.BASE_URL }}|g' api/controllers/UrlController.js
+          sed -i 's|BASE_URL|${{ vars.BASE_URL }}|g' api/controllers/UrlController.js
           sed -n '5p' api/controllers/UrlController.js 
 
           sed -i 's|DATABASE_HOST|${{ vars.DATABASE_HOST }}|g' config/env/development.js
