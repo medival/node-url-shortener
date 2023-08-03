@@ -27,33 +27,35 @@ jobs:
       - name: Configure APP
         run: |
           cd ${{ env.GITHUB_WORKSPACE }}
-          ls -lah
+          ls -lah runners
+          ls -lah work
+          ls -lah /home/runner/work/node-url-shortener/node-url-shortener
           sed -i 's|BASE_URL|${{ env.BASE_URL }}|g' api/controllers/UrlController.js
           sed -i 's|DATABASE_HOST|${{ env.DATABASE_HOST }}|g' config/env/*.js
           sed -i 's|DATABASE_NAME|${{ env.DATABASE_NAME }}|g' config/env/*.js
           sed -i 's|DATABASE_USERNAME|${{ env.DATABASE_USERNAME }}|g' config/env/*.js
           sed -i 's|DATABASE_PASSWORD|${{ secrets.DATABASE_PASSWORD }}|g' config/env/*.js
 
-      # Build Image
-      - uses: actions/checkout@v3
-      - name: Build the image
-        run: docker build . --file Dockerfile --tag ${{ vars.DOCKER_USERNAME }}/${{ vars.APP_NAME }}:${{ env.SHORT_SHA }}
+      # # Build Image
+      # - uses: actions/checkout@v3
+      # - name: Build the image
+      #   run: docker build . --file Dockerfile --tag ${{ vars.DOCKER_USERNAME }}/${{ vars.APP_NAME }}:${{ env.SHORT_SHA }}
 
-      # Push Image
-      - name: Push the image
-        run: docker push ${{ vars.DOCKER_USERNAME }}/${{ vars.APP_NAME }}:${{ env.SHORT_SHA }}
+      # # Push Image
+      # - name: Push the image
+      #   run: docker push ${{ vars.DOCKER_USERNAME }}/${{ vars.APP_NAME }}:${{ env.SHORT_SHA }}
 
-      # Deploy Image
-      - name: Deploy to Instance
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ vars.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd /home/ubuntu/project3
-            sed -i '8s|.*|    image: ${{ vars.DOCKER_USERNAME }}/${{ vars.APP_NAME }}:${{ env.SHORT_SHA }}|' docker-compose.yml
-            docker-compose down
-            docker-compose up -d
-            docker ps -a
+      # # Deploy Image
+      # - name: Deploy to Instance
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ vars.SSH_HOST }}
+      #     username: ${{ secrets.SSH_USERNAME }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     port: 22
+      #     script: |
+      #       cd /home/ubuntu/project3
+      #       sed -i '8s|.*|    image: ${{ vars.DOCKER_USERNAME }}/${{ vars.APP_NAME }}:${{ env.SHORT_SHA }}|' docker-compose.yml
+      #       docker-compose down
+      #       docker-compose up -d
+      #       docker ps -a
