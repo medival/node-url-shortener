@@ -6,14 +6,14 @@ on:
   pull_request:
     branches: [master]
 
-env:
-  SHORT_SHA: ${{ github.sha }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Add SHORT_SHA env 
+        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+
       # Access to Docker Registry
       - name: Login to Docker Registry
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
