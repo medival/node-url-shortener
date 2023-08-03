@@ -6,10 +6,18 @@ const sequelize = new Sequelize(config.mysql.database, config.mysql.username, co
   host: config.mysql.host,
   port: config.mysql.port,
   dialect: 'mysql',
-  logging: false, // Disable logging
+  logging: true, // Disable logging
   operatorsAliases: false, // Disable aliases,
 });
 
-sequelize.authenticate();
+// Test the connection
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 module.exports = { sequelize, Sequelize };
