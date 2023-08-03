@@ -22,14 +22,15 @@ jobs:
           registry: docker.io
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      # Clone Code
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       # Configure APP
       - name: Configure APP
         run: |
-          ls -lah $GITHUB_WORKSPACE
-          ls -lah runners
-          ls -lah work
-          ls -lah /home/runner/work/node-url-shortener
+          ls -lah
           sed -i 's|BASE_URL|${{ env.BASE_URL }}|g' api/controllers/UrlController.js
           sed -i 's|DATABASE_HOST|${{ env.DATABASE_HOST }}|g' config/env/*.js
           sed -i 's|DATABASE_NAME|${{ env.DATABASE_NAME }}|g' config/env/*.js
