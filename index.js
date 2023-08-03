@@ -3,7 +3,7 @@ const Url = require('./api/models/Url');
 
 Url.sync({ force: true });
 
-const port = parseInt(process.env.PORT, 10) || 3000;
+const port = parseInt(process.env.PORT, 10) || 8080;
 
 app.listen(port, () => {
   console.log(`The server is running at localhost: ${port}`);

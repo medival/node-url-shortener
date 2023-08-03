@@ -58,6 +58,5 @@ jobs:
           script: |
             cd /home/ubuntu/project3
             sed -i '8s|.*|    image: ${{ vars.DOCKER_USERNAME }}/${{ vars.APP_NAME }}:${{ env.SHORT_SHA }}|' docker-compose.yml
-            docker-compose down
-            docker-compose up -d
+            docker-compose up -d --force-recreate --no-deps app
             docker ps -a
