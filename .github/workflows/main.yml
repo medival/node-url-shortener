@@ -33,10 +33,10 @@ jobs:
           sed -i 's|BASE_URL|${{ env.BASE_URL }}|g' api/controllers/UrlController.js
           sed -n '5p' api/controllers/UrlController.js 
 
-          sed -i 's|DATABASE_HOST|${{ env.DATABASE_HOST }}|g' config/env/development.js
-          sed -i 's|DATABASE_NAME|${{ env.DATABASE_NAME }}|g' config/env/development.js
-          sed -i 's|DATABASE_USERNAME|${{ env.DATABASE_USERNAME }}|g' config/env/development.js
-          sed -i 's|DATABASE_PASSWORD|${{ secrets.DATABASE_PASSWORD }}|g' config/env/development.js
+          sed -i 's|DATABASE_HOST|${{ vars.DATABASE_HOST }}|g' config/env/development.js
+          sed -i 's|DATABASE_NAME|${{ vars.DATABASE_NAME }}|g' config/env/development.js
+          sed -i 's|DATABASE_USERNAME|${{ vars.DATABASE_USERNAME }}|g' config/env/development.js
+          sed -i 's|DATABASE_PASSWORD|${{ vars.DATABASE_PASSWORD }}|g' config/env/development.js
           cat config/env/development.js
 
       # # Build Image
