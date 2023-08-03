@@ -40,7 +40,6 @@ jobs:
           cat config/env/development.js
 
       # Build Image
-      - uses: actions/checkout@v3
       - name: Build the image
         run: docker build . --file Dockerfile --tag ${{ vars.DOCKER_USERNAME }}/${{ vars.APP_NAME }}:${{ env.SHORT_SHA }}
 
