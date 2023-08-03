@@ -1,9 +1,9 @@
 module.exports = {
   mysql: {
-    host: 'localhost',
+    host: "DATABASE_HOST",
     port: 3306,
-    database: 'shortener_dev',
-    username: 'root',
-    password: 'root',
+    database: "DATABASE_NAME",
+    username: "DATABASE_USERNAME",
+    password: "DATABASE_PASSWORD",
   },
 };
